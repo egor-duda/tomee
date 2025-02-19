@@ -18,10 +18,12 @@ package org.superbiz.composed;
 
 import jakarta.ejb.Stateful;
 import jakarta.ejb.TransactionAttribute;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceContextType;
 import jakarta.persistence.Query;
+import java.security.Principal;
 import java.util.List;
 
 import static jakarta.ejb.TransactionAttributeType.MANDATORY;
@@ -33,6 +35,9 @@ public class MoviesImpl implements Movies {
 
     @PersistenceContext(unitName = "movie-unit", type = PersistenceContextType.TRANSACTION)
     private EntityManager entityManager;
+
+    @Inject
+    private Principal principal;
 
     public void addMovie(Movie movie) throws Exception {
         entityManager.persist(movie);
